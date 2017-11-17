@@ -1,5 +1,4 @@
 from misc import portfolio
-import pprint
 
 # DECLARE INPUTS:
 
@@ -59,5 +58,3 @@ filtered_data = [
 	if row[2] in filtered_lengths
 	if row[3] in filtered_frequencies
 ]
-
-pprint.pprint(filtered_data)
