@@ -1,5 +1,7 @@
 import csv
 
+# Import Data
+
 f = open('../portfolio.csv')
 
 with open('../portfolio.csv', 'rb') as portfolio_csv:
