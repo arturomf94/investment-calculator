@@ -1,4 +1,5 @@
 from misc import portfolio
+import loan
 
 # DECLARE INPUTS:
 
@@ -58,3 +59,9 @@ filtered_data = [
 	if row[2] in filtered_lengths
 	if row[3] in filtered_frequencies
 ]
+
+print(filtered_data)
+
+for row in filtered_data:
+	test = loan.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
+	print(test.get_cash_flow())
