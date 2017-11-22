@@ -16,6 +16,8 @@ INTEREST_RATES = {
 	'F': .30
 }
 
+VAT = .16
+
 class Loan:
 
 	def __init__(self, amount = 0, length = 0, frequency = '', grade = ''):
@@ -29,6 +31,10 @@ class Loan:
 
 		return int(math.floor(FREQUENCIES[self.frequency] * duration_in_years))
 
+	def interest_rate_with_vat(self, interest_rate):
+		return interest_rate * (1 + VAT)
 
 	def cash_flow(self):
 		cash_flow = []
+		interest_rate = INTEREST_RATES[self.grade]
+		number_of_payments = self.number_of_payments()
