@@ -7,7 +7,7 @@ FREQUENCIES = {
 	'Mensual': 12
 }
 
-INTEREST_RATES = {
+ANNUAL_INTEREST_RATES = {
 	'A': .14,
 	'B': .17,
 	'C': .21,
@@ -32,9 +32,19 @@ class Loan:
 		return int(math.floor(FREQUENCIES[self.frequency] * duration_in_years))
 
 	def interest_rate_with_vat(self, interest_rate):
+
 		return interest_rate * (1 + VAT)
+
+	def interest_rate(self):
+
+		return ANNUAL_INTEREST_RATES[self.grade] / FREQUENCIES[self.frequency]
+
+	def period_payment(self):
+		amount = float(self.amount)
+		number_of_payments = self.number_of_payments()
+		interest_rate_with_vat = self.interest_rate_with_vat(self.interest_rate())
+
+		return (amount * interest_rate_with_vat) / (1 - math.pow(1 + interest_rate_with_vat, -number_of_payments))
 
 	def cash_flow(self):
 		cash_flow = []
-		interest_rate = INTEREST_RATES[self.grade]
-		number_of_payments = self.number_of_payments()

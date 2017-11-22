@@ -60,8 +60,9 @@ filtered_data = [
 	if row[3] in filtered_frequencies
 ]
 
+# TEST
+
 print(filtered_data)
 
 for row in filtered_data:
 	test = loan.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
-	print(test.number_of_payments())
