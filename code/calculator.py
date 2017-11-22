@@ -64,4 +64,4 @@ print(filtered_data)
 
 for row in filtered_data:
 	test = loan.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
-	print(test.get_cash_flow())
+	print(test.number_of_payments())
