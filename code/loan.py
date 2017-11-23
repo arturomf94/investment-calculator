@@ -2,9 +2,9 @@ from __future__ import division
 import math
 
 FREQUENCIES = {
-	'Semanal': 52,
-	'Catorcenal': 26,
-	'Mensual': 12
+	'Semanal': [52,4],
+	'Catorcenal': [26,2],
+	'Mensual': [12,1]
 }
 
 ANNUAL_INTEREST_RATES = {
@@ -29,7 +29,7 @@ class Loan:
 	def number_of_payments(self):
 		duration_in_years = int(self.length) / 12
 
-		return int(math.floor(FREQUENCIES[self.frequency] * duration_in_years))
+		return int(math.floor(FREQUENCIES[self.frequency][0] * duration_in_years))
 
 	def interest_rate_with_vat(self, interest_rate):
 
@@ -37,7 +37,7 @@ class Loan:
 
 	def interest_rate(self):
 
-		return ANNUAL_INTEREST_RATES[self.grade] / FREQUENCIES[self.frequency]
+		return ANNUAL_INTEREST_RATES[self.grade] / FREQUENCIES[self.frequency][0]
 
 	def period_payment(self):
 		amount = float(self.amount)
@@ -65,3 +65,48 @@ class Loan:
 			cash_flow.append(period_flow)
 
 		return cash_flow
+
+	def monthly_cash_flow(self):
+		cash_flow = self.cash_flow()
+		number_of_payments = self.number_of_payments()
+		monthly_periods = FREQUENCIES[self.frequency][1]
+
+		if self.frequency != 'Mensual':
+			new_cash_flow = []
+			months = number_of_payments // monthly_periods
+
+			for i in range(1, months + 1):
+				period_counter = i * monthly_periods
+				monthly_payment = 0
+				monthly_capital = 0
+				monthly_interest = 0
+				monthly_vat = 0
+
+				for k in range(1, monthly_periods + 1):
+					monthly_payment = monthly_payment + cash_flow[period_counter - k][0]
+					monthly_capital = monthly_capital + cash_flow[period_counter - k][1]
+					monthly_interest = monthly_interest + cash_flow[period_counter - k][2]
+					monthly_vat = monthly_vat + cash_flow[period_counter - k][3]
+
+				monthly_cash_flow = [monthly_payment, monthly_capital, monthly_interest, monthly_vat]
+				new_cash_flow.append(monthly_cash_flow)
+
+				if (i == months and period_counter < number_of_payments):
+					monthly_payment = 0
+					monthly_capital = 0
+					monthly_interest = 0
+					monthly_vat = 0
+
+					for j in range(period_counter, number_of_payments):
+						monthly_payment = monthly_payment + cash_flow[j][0]
+						monthly_capital = monthly_capital + cash_flow[j][1]
+						monthly_interest = monthly_interest + cash_flow[j][2]
+						monthly_vat = monthly_vat + cash_flow[j][3]
+
+					monthly_cash_flow = [monthly_payment, monthly_capital, monthly_interest, monthly_vat]
+					new_cash_flow.append(monthly_cash_flow)
+
+			cash_flow = new_cash_flow
+
+		return cash_flow
+

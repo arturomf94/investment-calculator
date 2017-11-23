@@ -39,8 +39,8 @@ filtered_lengths = [
 
 accepted_frequencies = {
 	'Semanal':0,
-	'Catorcenal':0,
-	'Mensual':1
+	'Catorcenal':1,
+	'Mensual':0
 }
 
 filtered_frequencies = [
@@ -67,4 +67,4 @@ print(filtered_data)
 
 for row in filtered_data:
 	test = loan.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
-	pprint.pprint(test.cash_flow())
+	pprint.pprint(test.monthly_cash_flow())
