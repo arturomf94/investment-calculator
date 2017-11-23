@@ -48,3 +48,20 @@ class Loan:
 
 	def cash_flow(self):
 		cash_flow = []
+		initial_balance = float(self.amount)
+		period_balance = initial_balance
+		period_payment = self.period_payment()
+		number_of_payments = self.number_of_payments()
+		interest_rate = self.interest_rate()
+		interest_rate_with_vat = self.interest_rate_with_vat(interest_rate)
+
+		for i in range(1, number_of_payments + 1):
+			period_interest = interest_rate * period_balance
+			period_interest_with_vat = interest_rate_with_vat * period_balance
+			period_vat = period_interest_with_vat - period_interest
+			period_capital = period_payment - period_interest_with_vat
+			period_flow = [period_payment, period_capital, period_interest, period_vat]
+			period_balance = period_balance * (1 + interest_rate_with_vat) - period_payment
+			cash_flow.append(period_flow)
+
+		return cash_flow
