@@ -68,3 +68,4 @@ print(filtered_data)
 for row in filtered_data:
 	test = loan.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
 	pprint.pprint(test.monthly_cash_flow())
+	pprint.pprint(test.standardize_monthly_cash_flow())

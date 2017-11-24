@@ -110,3 +110,36 @@ class Loan:
 
 		return cash_flow
 
+
+	# NOTE: 
+	# The length of the monthly cash flow of a loan may not match its actual
+	# loan length if the loan frequency is not monthly. For example, if a loan
+	# is made for 3 months with weekly payments, there will actually be 13 payments, 
+	# instead of 12 (4 * 3). Thus, this function 'standardizes' monthly cash flows
+	# in order for them to have the same length as the actual loan.
+
+	def standardize_monthly_cash_flow(self):
+		monthly_cash_flow = self.monthly_cash_flow()
+		real_length = int(self.length)
+		cash_flow_length = len(monthly_cash_flow)
+		if cash_flow_length != real_length:
+			length_difference = cash_flow_length - real_length
+			payment_difference = 0
+			capital_difference = 0
+			interest_difference = 0
+			vat_difference = 0
+			for i in range(1, length_difference + 1):
+				payment_difference = monthly_cash_flow[cash_flow_length - i][0]
+				capital_difference = monthly_cash_flow[cash_flow_length - i][1]
+				interest_difference = monthly_cash_flow[cash_flow_length - i][2]
+				vat_difference = monthly_cash_flow[cash_flow_length - i][3]
+
+			monthly_cash_flow[real_length - 1][0] = monthly_cash_flow[real_length - 1][0] + payment_difference
+			monthly_cash_flow[real_length - 1][1] = monthly_cash_flow[real_length - 1][1] + capital_difference
+			monthly_cash_flow[real_length - 1][2] = monthly_cash_flow[real_length - 1][2] + interest_difference
+			monthly_cash_flow[real_length - 1][3] = monthly_cash_flow[real_length - 1][3] + vat_difference
+
+			del monthly_cash_flow[real_length:]
+
+		return monthly_cash_flow
+
