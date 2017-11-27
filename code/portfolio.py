@@ -1,5 +1,6 @@
 from misc import portfolio
 import loan
+import datetime
 
 class Portfolio:
 
@@ -45,6 +46,6 @@ class Portfolio:
 		summary = []
 
 		for i in range(1,19):
-			summary.append([0,0,0,0])
+			summary.append([datetime.date.today() + datetime.timedelta((i-1)*365/12),0,0,0,0])
 
 		return summary
