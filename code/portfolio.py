@@ -1,4 +1,5 @@
 from misc import portfolio
+import loan
 
 class Portfolio:
 
@@ -39,3 +40,11 @@ class Portfolio:
 		]
 
 		return filtered_data
+
+	def get_summary(self):
+		summary = []
+
+		for i in range(1,19):
+			summary.append([0,0,0,0])
+
+		return summary

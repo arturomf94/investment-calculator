@@ -37,11 +37,8 @@ portfolio = portfolio_module.Portfolio(accepted_lengths = accepted_lengths, \
 
 portfolio_data = portfolio.get_data()
 
+portfolio_summary = portfolio.get_summary()
+
 # TEST
 
-print(portfolio_data)
-
-for row in portfolio_data:
-	test = loan_module.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
-	pprint.pprint(test.monthly_cash_flow())
-	pprint.pprint(test.standardize_monthly_cash_flow())
+pprint.pprint(portfolio_summary)

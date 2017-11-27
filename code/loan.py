@@ -122,12 +122,14 @@ class Loan:
 		monthly_cash_flow = self.monthly_cash_flow()
 		real_length = int(self.length)
 		cash_flow_length = len(monthly_cash_flow)
+
 		if cash_flow_length != real_length:
 			length_difference = cash_flow_length - real_length
 			payment_difference = 0
 			capital_difference = 0
 			interest_difference = 0
 			vat_difference = 0
+			
 			for i in range(1, length_difference + 1):
 				payment_difference = monthly_cash_flow[cash_flow_length - i][0]
 				capital_difference = monthly_cash_flow[cash_flow_length - i][1]
