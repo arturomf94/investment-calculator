@@ -1,5 +1,5 @@
-from misc import portfolio
-import loan
+import loan as loan_module
+import portfolio as portfolio_module
 import pprint
 
 # DECLARE INPUTS:
@@ -15,12 +15,6 @@ accepted_grades = {
 	'F':0
 }
 
-filtered_grades = [
-	grade 
-	for grade in accepted_grades 
-	if accepted_grades[grade] == 1
-]
-
 # Accepted Loan Length
 
 accepted_lengths = {
@@ -28,12 +22,6 @@ accepted_lengths = {
 	'12':0,
 	'18':0
 }
-
-filtered_lengths = [
-	length
-	for length in accepted_lengths
-	if accepted_lengths[length] == 1
-]
 
 # Accepted Loan Frequency
 
@@ -43,29 +31,17 @@ accepted_frequencies = {
 	'Mensual':0
 }
 
-filtered_frequencies = [
-	frequency
-	for frequency in accepted_frequencies
-	if accepted_frequencies[frequency] == 1
-]
+portfolio = portfolio_module.Portfolio(accepted_lengths = accepted_lengths, \
+									 	accepted_frequencies = accepted_frequencies, \
+									 	accepted_grades = accepted_grades)
 
-# FILTER DATA:
-
-filtered_data = []
-
-filtered_data = [
-	row
-	for row in portfolio
-	if row[4] in filtered_grades
-	if row[2] in filtered_lengths
-	if row[3] in filtered_frequencies
-]
+portfolio_data = portfolio.get_data()
 
 # TEST
 
-print(filtered_data)
+print(portfolio_data)
 
-for row in filtered_data:
-	test = loan.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
+for row in portfolio_data:
+	test = loan_module.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
 	pprint.pprint(test.monthly_cash_flow())
 	pprint.pprint(test.standardize_monthly_cash_flow())
