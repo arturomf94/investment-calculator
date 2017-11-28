@@ -40,5 +40,9 @@ portfolio_data = portfolio.get_data()
 portfolio_summary = portfolio.get_summary()
 
 # TEST
+print('PORTFOLIO')
+pprint.pprint(portfolio_data)
+print('MONTHLY CASH FLOW')
+test = loan_module.Loan(amount = portfolio_data[0][1], length = portfolio_data[0][2], frequency = portfolio_data[0][3], grade = portfolio_data[0][4])
+pprint.pprint(test.standardize_monthly_cash_flow())
 
-pprint.pprint(portfolio_summary)
