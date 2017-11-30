@@ -1,5 +1,5 @@
 from misc import portfolio
-import loan
+import loan as loan_module
 import datetime
 
 class Portfolio:
@@ -44,8 +44,18 @@ class Portfolio:
 
 	def get_summary(self):
 		summary = []
+		data = self.get_data()
 
 		for i in range(1,19):
 			summary.append([datetime.date.today() + datetime.timedelta((i-1)*365/12),0,0,0,0])
+
+		for row in data:
+			loan = loan_module.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
+			cash_flow = loan.standardize_monthly_cash_flow()
+			for month in cash_flow:
+				summary[cash_flow.index(month)][1] = summary[cash_flow.index(month)][1] + month[0] # Payment
+				summary[cash_flow.index(month)][2] = summary[cash_flow.index(month)][2] + month[1] # Payment
+				summary[cash_flow.index(month)][3] = summary[cash_flow.index(month)][3] + month[2] # Payment
+				summary[cash_flow.index(month)][4] = summary[cash_flow.index(month)][4] + month[3] # Payment
 
 		return summary
