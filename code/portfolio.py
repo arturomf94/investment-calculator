@@ -1,3 +1,4 @@
+from __future__ import division
 from misc import portfolio
 import loan as loan_module
 import datetime
@@ -42,20 +43,23 @@ class Portfolio:
 
 		return filtered_data
 
-	def get_summary(self):
+	def get_summary(self, investment_amount):
 		summary = []
 		data = self.get_data()
+		portfolio_length = len(data)
+		individual_investment_amount = investment_amount / portfolio_length
 
 		for i in range(1,19):
 			summary.append([datetime.date.today() + datetime.timedelta((i-1)*365/12),0,0,0,0])
 
 		for row in data:
 			loan = loan_module.Loan(amount = row[1], length = row[2], frequency = row[3], grade = row[4])
+			loan_proportion = individual_investment_amount / float(loan.amount)
 			cash_flow = loan.standardize_monthly_cash_flow()
 			for month in cash_flow:
-				summary[cash_flow.index(month)][1] = summary[cash_flow.index(month)][1] + month[0] # Payment
-				summary[cash_flow.index(month)][2] = summary[cash_flow.index(month)][2] + month[1] # Payment
-				summary[cash_flow.index(month)][3] = summary[cash_flow.index(month)][3] + month[2] # Payment
-				summary[cash_flow.index(month)][4] = summary[cash_flow.index(month)][4] + month[3] # Payment
+				summary[cash_flow.index(month)][1] = summary[cash_flow.index(month)][1] + month[0] * loan_proportion # Payment
+				summary[cash_flow.index(month)][2] = summary[cash_flow.index(month)][2] + month[1] * loan_proportion # Capital
+				summary[cash_flow.index(month)][3] = summary[cash_flow.index(month)][3] + month[2] * loan_proportion # Interest
+				summary[cash_flow.index(month)][4] = summary[cash_flow.index(month)][4] + month[3] * loan_proportion # VAT
 
 		return summary

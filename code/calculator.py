@@ -3,6 +3,10 @@ import pprint
 
 # DECLARE INPUTS:
 
+# Initial Investment Amount
+
+investment_amount = 1000
+
 # Accepted Grades
 
 accepted_grades = {
@@ -36,7 +40,7 @@ portfolio = portfolio_module.Portfolio(accepted_lengths = accepted_lengths, \
 
 portfolio_data = portfolio.get_data()
 
-portfolio_summary = portfolio.get_summary()
+portfolio_summary = portfolio.get_summary(investment_amount = investment_amount)
 
 # TEST
 print('PORTFOLIO')
