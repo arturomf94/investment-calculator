@@ -136,12 +136,17 @@ class Loan:
 				interest_difference = monthly_cash_flow[cash_flow_length - i][2]
 				vat_difference = monthly_cash_flow[cash_flow_length - i][3]
 
-			monthly_cash_flow[real_length - 1][0] = monthly_cash_flow[real_length - 1][0] + payment_difference
-			monthly_cash_flow[real_length - 1][1] = monthly_cash_flow[real_length - 1][1] + capital_difference
-			monthly_cash_flow[real_length - 1][2] = monthly_cash_flow[real_length - 1][2] + interest_difference
-			monthly_cash_flow[real_length - 1][3] = monthly_cash_flow[real_length - 1][3] + vat_difference
+			payment_difference = payment_difference / real_length
+			capital_difference = capital_difference / real_length
+			interest_difference = interest_difference / real_length
+			vat_difference = vat_difference / real_length
+
+			for j in range(0, real_length):
+				monthly_cash_flow[j][0] = monthly_cash_flow[j][0] + payment_difference
+				monthly_cash_flow[j][1] = monthly_cash_flow[j][1] + capital_difference
+				monthly_cash_flow[j][2] = monthly_cash_flow[j][2] + interest_difference
+				monthly_cash_flow[j][3] = monthly_cash_flow[j][3] + vat_difference
 
 			del monthly_cash_flow[real_length:]
 
 		return monthly_cash_flow
-
