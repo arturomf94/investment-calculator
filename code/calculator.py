@@ -8,26 +8,26 @@ import pprint
 accepted_grades = {
 	'A':1,
 	'B':1,
-	'C':0,
-	'D':0,
-	'E':0,
-	'F':0
+	'C':1,
+	'D':1,
+	'E':1,
+	'F':1
 }
 
 # Accepted Loan Length
 
 accepted_lengths = {
 	'6':1,
-	'12':0,
-	'18':0
+	'12':1,
+	'18':1
 }
 
 # Accepted Loan Frequency
 
 accepted_frequencies = {
-	'Semanal':0,
+	'Semanal':1,
 	'Catorcenal':1,
-	'Mensual':0
+	'Mensual':1
 }
 
 portfolio = portfolio_module.Portfolio(accepted_lengths = accepted_lengths, \
