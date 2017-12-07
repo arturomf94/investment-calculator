@@ -63,3 +63,23 @@ class Portfolio:
 				summary[cash_flow.index(month)][4] = summary[cash_flow.index(month)][4] + month[3] * loan_proportion # VAT
 
 		return summary
+
+	def get_grade_distribution(self, accepted_grades):
+		data = self.get_data()
+		total = len(data)
+		grades = [
+			grade 
+			for grade in accepted_grades 
+			if accepted_grades[grade] == 1
+		]
+		proportion = []
+
+		for grade in grades:
+			count = 0
+
+			for row in data:
+				count = count + int(row[4] == grade)
+
+			proportion.append(count / total)
+
+		return [grades, proportion] 
