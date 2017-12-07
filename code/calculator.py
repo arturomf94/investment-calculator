@@ -15,10 +15,10 @@ investment_amount = 10000
 accepted_grades = {
 	'A':1,
 	'B':1,
-	'C':1,
-	'D':1,
-	'E':1,
-	'F':1
+	'C':0,
+	'D':0,
+	'E':0,
+	'F':0
 }
 
 # Accepted Loan Length
@@ -84,9 +84,14 @@ plt.legend((accumulated_capital_subplot[0], accumulated_interest_subplot[0]), ('
 
 plt.show()
 
-# Extract Distribution Data
+# Extract Grade Distribution Data
 
 grades = portfolio_grade_distribution[0]
 proportion = portfolio_grade_distribution[1]
 
+# Pie Chart for Grade Distribution
+
+plt.pie(proportion, labels=grades, autopct='%1.1f%%')
+
+plt.show()
 
