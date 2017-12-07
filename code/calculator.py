@@ -24,8 +24,8 @@ accepted_grades = {
 # Accepted Loan Length
 
 accepted_lengths = {
-	'6':0,
-	'12':0,
+	'6':1,
+	'12':1,
 	'18':1
 }
 
@@ -48,9 +48,13 @@ portfolio_summary = portfolio.get_summary(investment_amount = investment_amount)
 # Extract Payments, Capital, Interest and VAT
 
 payment = []
+accumulated_payment = []
 capital = []
+accumulated_capital = []
 interest = []
+accumulated_interest = []
 vat = []
+accumulated_vat = []
 mes = []
 
 for i in range(0,18):
@@ -59,15 +63,21 @@ for i in range(0,18):
 	interest.append(portfolio_summary[i][3])
 	vat.append(portfolio_summary[i][4])
 	mes.append(i + 1)
+	accumulated_payment.append(sum(payment))
+	accumulated_capital.append(sum(capital))
+	accumulated_interest.append(sum(interest))
+	accumulated_vat.append(sum(vat))
 
 
-# Plot Capital
+# Plot Accumulated Capital and Interest 
+accumulated_capital_subplot = plt.bar(mes, accumulated_capital, align = 'center', alpha = 0.5)
+accumulated_interest_subplot = plt.bar(mes, accumulated_interest, align = 'center', \
+										bottom = accumulated_capital, alpha = 0.5)
 
-plt.bar(mes, capital, align='center', alpha=0.5)
-plt.xlabel('Mes')
+plt.ylabel('Pesos')
+plt.title('Capital e Interes Acumulado')
 plt.xticks(mes,mes)
-plt.ylabel('$')
-plt.title('Capital')
+plt.legend((accumulated_capital_subplot[0], accumulated_interest_subplot[0]), ('Capital', 'Interest'))
 
 plt.show()
 
