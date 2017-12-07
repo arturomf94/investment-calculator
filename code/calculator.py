@@ -13,11 +13,11 @@ investment_amount = 10000
 # Accepted Grades
 
 accepted_grades = {
-	'A':1,
-	'B':1,
-	'C':1,
-	'D':1,
-	'E':1,
+	'A':0,
+	'B':0,
+	'C':0,
+	'D':0,
+	'E':0,
 	'F':1
 }
 
@@ -25,16 +25,16 @@ accepted_grades = {
 
 accepted_lengths = {
 	'6':1,
-	'12':1,
-	'18':1
+	'12':0,
+	'18':0
 }
 
 # Accepted Loan Frequency
 
 accepted_frequencies = {
 	'Semanal':1,
-	'Catorcenal':1,
-	'Mensual':1
+	'Catorcenal':0,
+	'Mensual':0
 }
 
 portfolio = portfolio_module.Portfolio(accepted_lengths = accepted_lengths, \
@@ -75,6 +75,7 @@ accumulated_interest_subplot = plt.bar(mes, accumulated_interest, align = 'cente
 										bottom = accumulated_capital, alpha = 0.5)
 
 plt.ylabel('Pesos')
+plt.xlabel('Mes')
 plt.title('Capital e Interes Acumulado')
 plt.xticks(mes,mes)
 plt.legend((accumulated_capital_subplot[0], accumulated_interest_subplot[0]), ('Capital', 'Interest'))
