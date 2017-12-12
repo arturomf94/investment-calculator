@@ -15,10 +15,10 @@ investment_amount = 10000
 accepted_grades = {
 	'A':1,
 	'B':1,
-	'C':0,
-	'D':0,
-	'E':0,
-	'F':0
+	'C':1,
+	'D':1,
+	'E':1,
+	'F':1
 }
 
 # Accepted Loan Length
